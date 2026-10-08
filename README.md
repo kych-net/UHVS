@@ -1,408 +1,56 @@
-# VS Code Extension Template
+# 地狱之下 · 元素工具(VS Code 插件)
 
-[![CI](https://github.com/ken-willis/vscode-extension-template/actions/workflows/ci.yml/badge.svg)](https://github.com/ken-willis/vscode-extension-template/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Template](https://img.shields.io/badge/template-VS%20Code%20Extension-blue.svg)](https://github.com/ken-willis/vscode-extension-template)
+为 UnderHell / UHTemp 的 Typst 正文(`#元素` / `#设定元素`)提供元素系统支持。
+从 `UnderHellCodes/程序/vs-code` 迁移而来,布局适配 UHTemp 模板(正文在 `内容/`,数据在 `附件/元素系统.csv`),并兼容旧的 `文档/` 布局。
 
-A professional TypeScript VS Code extension starter template with ESLint, Prettier, EditorConfig, testing, GitHub Actions CI, and complete development tooling pre-configured.
+## 功能
 
-## 🚀 Quick Start
+- **元素管理面板**（侧栏）：表格浏览全部元素，状态徽标区分 孤儿 / 未定义 / 重复定义；元素名可直接改（全局改名，同步文档引用与 CSV），系统名词可直接编辑写回 `元素系统.csv`；顶部一键 补全 / 清理 / 排序 / 刷新。
+- **悬停**：把光标停在元素引用上，显示该元素在 `元素系统.csv` 里的各系统名词。
+- **跳转定义**：从引用跳转到 `#设定元素` 定义处（Cmd+点击 / F12）。
+- **语义高亮**：元素 id 以语义 token 高亮区分。
+- **诊断**：`#设定元素` 重复定义、元素未被 CSV 收录，实时标红。
+- **命令**（命令面板 / 右键菜单）：
+  - `元素:扫描诊断` —— 列出缺失 / 重复定义
+  - `元素:补全缺失到CSV` —— 把文档出现却未收录的 id 追加进 `元素系统.csv`
+  - `元素:清理CSV孤儿` —— 删除 CSV 中有、文档已不再引用的元素
+  - `元素:按文档顺序排序CSV` —— 按 `#设定元素` 定义顺序重排 CSV
+  - `元素:重命名ID` —— 批量改 id：同步替换文档引用、静态标签、交叉引用与 CSV
+  - `元素:刷新缓存` —— 手动重建索引
 
-1. **Use this template** - Click "Use this template" button above
-2. **Clone your new repository**
-3. **Run setup script**: `& "C:\Program Files\Git\bin\bash.exe" -c "node scripts/setup.mjs"`
-4. **Follow interactive prompts** to customize your extension
-5. **Install dependencies**: `npm install`
-6. **Start developing**: Press `F5` to launch Extension Development Host
+## 布局约定
 
-## ✨ What's Included
+| 内容 | 路径 |
+|---|---|
+| 正文 | `<仓库根>/内容/**/*.typ`(旧布局为 `文档/`) |
+| 元素系统数据 | `<仓库根>/附件/元素系统.csv`(旧布局为 `文档/附件/元素系统.csv`) |
 
--   **TypeScript** - Full TypeScript configuration with strict settings
--   **ESLint** - Code linting with TypeScript support
--   **Prettier** - Code formatting with format-on-save
--   **EditorConfig** - Consistent formatting across editors and platforms
--   **Testing Framework** - Complete test setup with examples
--   **GitHub Actions CI** - Automated testing on Windows, Mac, and Linux
--   **Git Configuration** - Proper .gitignore, .gitattributes for cross-platform development
--   **VS Code Integration** - Optimized settings, tasks, and debug configuration
--   **Professional Structure** - Industry-standard project organization
--   **Interactive Setup** - One-command customization script
+仓库根 = 工作区内自首个文件夹逐级上溯、第一个含 `内容/`(或 `文档/`)的目录。
 
-## 📋 Prerequisites
+## 配置
 
-Before using this template, ensure you have:
+| 键 | 默认 | 说明 |
+|---|---|---|
+| `underhell.elements.repoRoot` | 空 | 可选覆盖仓库根（含 `内容/` 的目录）。留空则从打开的工作区自动探测 |
 
-### Required Software
-
--   **Node.js** (version 18 or higher) - [Download here](https://nodejs.org/)
--   **Git** - [Download here](https://git-scm.com/)
--   **Visual Studio Code** - [Download here](https://code.visualstudio.com/)
-
-### Verify Installation
+## 开发
 
 ```bash
-node --version    # Should show v18.0.0 or higher
-npm --version     # Should show npm version
-git --version     # Should show git version
-code --version    # Should show VS Code version
+npm install        # 装依赖
+npm run compile    # 编译到 out/
+npm run lint       # ESLint
+npm test           # 运行扩展测试
+F5                 # 在 Extension Development Host 里调试
 ```
 
-### VS Code Extensions (Recommended)
-
-Install these extensions for the best development experience:
-
--   **TypeScript and JavaScript Language Features** (built-in)
--   **ESLint** (Microsoft)
--   **Prettier - Code formatter** (Prettier)
--   **GitLens** (GitKraken)
--   **Extension Test Runner** (Microsoft)
-
-## 🛠️ Setup & Customization
-
-### Automated Setup (Recommended)
-
-After cloning your repository from this template:
+## 编译安装
 
 ```bash
-# Run the interactive setup script
-node scripts/setup.mjs
-```
-
-The script will prompt you for:
-
--   Extension name (kebab-case)
--   Display name
--   Description
--   Publisher name
--   Author name
--   GitHub username
--   Repository name
-
-It will automatically:
-
--   ✅ Update package.json with your details
--   ✅ Replace command names in extension.ts
--   ✅ Update test files with correct extension ID
--   ✅ Generate a new README for your extension
--   ✅ Update CHANGELOG with your extension info
--   ✅ Configure VS Code settings
--   ✅ Clean up template files
-
-### Manual Customization (Alternative)
-
-If you prefer manual setup, update these files:
-
-#### 1. Update package.json
-
-```json
-{
-    "name": "your-extension-name",
-    "displayName": "Your Extension Display Name",
-    "description": "What your extension does",
-    "publisher": "your-ms-publisher-id",
-    "author": "Your Name",
-    "repository": {
-        "url": "https://github.com/your-username/your-repository-name"
-    },
-    "bugs": {
-        "url": "https://github.com/your-username/your-repository-name/issues"
-    },
-    "homepage": "https://github.com/your-username/your-repository-name#readme"
-}
-```
-
-#### 2. Update Commands in package.json
-
-```json
-"contributes": {
-  "commands": [
-    {
-      "command": "your-extension-name.yourCommand",
-      "title": "Your Command",
-      "category": "Your Extension"
-    }
-  ]
-}
-```
-
-#### 3. Update src/extension.ts
-
--   Replace command names with your extension's commands
--   Add your extension logic
--   Update activation events as needed
-
-#### 4. Update Tests
-
-Replace extension ID in test files:
-
-```typescript
-vscode.extensions.getExtension('your-publisher.your-extension-name');
-```
-
-## 📋 Development Workflow
-
-### Available Scripts
-
--   `npm run compile` - Compile TypeScript to JavaScript
--   `npm run watch` - Watch for changes and compile automatically
--   `npm run lint` - Run ESLint on source code
--   `npm test` - Run extension tests
--   `npm run vscode:prepublish` - Prepare for publishing
-
-### Debugging Your Extension
-
--   Press `F5` to open Extension Development Host with your extension loaded
--   Run commands from Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
--   Set breakpoints in `src/extension.ts` to debug your code
--   View output in the Debug Console
--   Reload the extension window (`Ctrl+R` / `Cmd+R`) after code changes
-
-### Running Tests
-
--   Tests use VS Code's built-in testing framework (included)
--   **Optional:** Install [Extension Test Runner](https://marketplace.visualstudio.com/items?itemName=ms-vscode.extension-test-runner) for UI testing
--   Run tests via command line: `npm test`
--   Or use VS Code's Testing panel if Extension Test Runner is installed
--   Test files must match pattern `**.test.ts`
-
-### Dependency Management
-
-When customizing your extension, you may need to add packages:
-
-```bash
-npm install your-package          # Runtime dependency
-npm install --save-dev dev-tool   # Development dependency
-npm uninstall package-name        # Remove dependency
-```
-
-**When to run npm install:**
-
--   **After adding dependencies** - When you modify package.json dependencies
--   **Team collaboration** - When package-lock.json changes from Git pulls
--   **Troubleshooting** - If node_modules gets corrupted or deleted
-
-**Always commit package-lock.json changes** to ensure team consistency.
-
-```bash
-# Clean install (if issues occur)
-rm -rf node_modules package-lock.json
 npm install
+npm run compile
+npm run package    # 打包出 .vsix(vsce)
 ```
 
-## 🐛 Debugging Guide
+VS Code 扩展面板 → 右上角 `…` → **Install from VSIX…** → 选生成的 `.vsix` → 重载窗口。
 
-### Common Issues and Solutions
-
-#### Extension Won't Activate
-
-1. **Check console errors**: Open Developer Tools (Help → Toggle Developer Tools)
-2. **Verify package.json**: Ensure activation events are correct
-3. **Check file paths**: Ensure main file path is correct
-
-#### Tests Not Running
-
-1. **Install Extension Test Runner**: In VS Code Extensions panel
-2. **Run compile**: `npm run compile`
-3. **Check test files**: Must end with `.test.ts`
-
-#### TypeScript Errors
-
-1. **Check tsconfig.json**: Ensure paths are correct
-2. **Restart TypeScript**: Command Palette → "TypeScript: Restart TS Server"
-3. **Clear compiled output**: Delete `out/` folder and recompile
-
-### Step-by-Step Debugging
-
-1. **Launch Extension Development Host**: Press `F5`
-2. **Set breakpoints**: Click in gutter next to line numbers
-3. **Trigger command**: Use Command Palette in development host
-4. **Inspect variables**: Hover over variables or use Debug Console
-
-## 📦 Publishing Your Extension
-
-### Prepare for Publishing
-
-#### 1. Install vsce (VS Code Extension Manager)
-
-```bash
-npm install -g vsce
-```
-
-#### 2. Create Publisher Account
-
-1. Visit [VS Code Marketplace](https://marketplace.visualstudio.com/manage)
-2. Sign in with Microsoft account
-3. Create publisher profile
-
-#### 3. Update Extension Details
-
-Ensure your package.json has:
-
--   Correct publisher name
--   Updated version number
--   Complete description
--   Proper categories and keywords
-
-### Publishing Commands
-
-#### Package Extension (Create .vsix file)
-
-```bash
-vsce package
-```
-
-#### Validate Package
-
-```bash
-vsce ls                    # List package contents
-vsce show <publisher.name> # Show published info
-```
-
-#### Publish to Marketplace
-
-```bash
-# Login (first time only)
-vsce login <publisher-name>
-
-# Publish
-vsce publish
-
-# Publish with version bump
-vsce publish patch   # 1.0.0 → 1.0.1
-vsce publish minor   # 1.0.0 → 1.1.0
-vsce publish major   # 1.0.0 → 2.0.0
-```
-
-### Pre-Publishing Checklist
-
--   [ ] All tests pass (`npm test`)
--   [ ] Extension packages without errors (`vsce package`)
--   [ ] README has screenshots/GIFs of features
--   [ ] CHANGELOG.md is updated
--   [ ] Version number incremented
--   [ ] Icon added (128x128 PNG)
--   [ ] Repository URL is correct
-
-## 📁 Project Structure
-
-```
-your-extension/
-├── .github/              # GitHub Actions CI/CD
-│   └── workflows/
-│       └── ci.yml
-├── .vscode/              # VS Code settings and tasks
-├── src/                  # TypeScript source code
-│   ├── extension.ts      # Main extension file
-│   └── test/             # Test files
-├── templates/            # Template files (removed after setup)
-├── scripts/              # Setup scripts (removed after setup)
-├── .editorconfig         # Editor configuration
-├── .gitattributes        # Git line ending settings
-├── .gitignore            # Git ignore rules
-├── .prettierrc           # Prettier formatting rules
-├── package.json          # Extension manifest
-└── tsconfig.json         # TypeScript configuration
-```
-
-## 🎯 Extension Guidelines
-
-Follow VS Code extension best practices:
-
--   **Activation Events** - Only activate when needed
--   **Commands** - Use clear, descriptive command names
--   **Settings** - Prefix with your extension name
--   **Performance** - Keep activation time minimal
--   **User Experience** - Provide clear feedback and error messages
-
-### Useful Resources
-
--   [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
--   [Extension API](https://code.visualstudio.com/api)
--   [Publishing Extensions](https://code.visualstudio.com/api/working-with-extensions/publishing-extension)
-
-## 🔧 Advanced Configuration
-
-### Adding Extension Settings
-
-```json
-"contributes": {
-  "configuration": {
-    "title": "Your Extension",
-    "properties": {
-      "yourExtension.enabled": {
-        "type": "boolean",
-        "default": true,
-        "description": "Enable/disable your extension"
-      }
-    }
-  }
-}
-```
-
-### Adding Keybindings
-
-```json
-"contributes": {
-  "keybindings": [
-    {
-      "command": "yourExtension.yourCommand",
-      "key": "ctrl+shift+y",
-      "when": "editorTextFocus"
-    }
-  ]
-}
-```
-
-## 📝 Writing Your Extension README
-
-After setup, your extension will have a basic README. Enhance it with:
-
-### Essential Sections
-
--   **Features** - What your extension does with screenshots/GIFs
--   **Requirements** - Dependencies or prerequisites
--   **Extension Settings** - Configuration options you add
--   **Known Issues** - Current limitations
--   **Release Notes** - Version history
-
-### README Tips
-
--   **Use screenshots** - Show your extension in action
--   **Include GIFs** - Demonstrate features visually
--   **Be specific** - Clear, concise feature descriptions
--   **Keep updated** - Maintain accurate documentation
-
-## 🏆 Badges for Your Extension
-
-Add these badges to your extension's README:
-
-```markdown
-[![CI](https://github.com/your-username/your-extension/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/your-extension/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/visual-studio-marketplace/v/your-publisher.your-extension)](https://marketplace.visualstudio.com/items?itemName=your-publisher.your-extension)
-[![Installs](https://img.shields.io/visual-studio-marketplace/i/your-publisher.your-extension)](https://marketplace.visualstudio.com/items?itemName=your-publisher.your-extension)
-[![Rating](https://img.shields.io/visual-studio-marketplace/r/your-publisher.your-extension)](https://marketplace.visualstudio.com/items?itemName=your-publisher.your-extension)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-```
-
-## 🤝 Contributing
-
-This template is open source. Feel free to:
-
--   Report issues
--   Suggest improvements
--   Submit pull requests
--   Fork for your own use
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines.
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
----
-
-**Happy Extension Development!** 🎉
-
-Built with ❤️ by [Ken Willis](https://github.com/ken-willis)
-
-_This template provides everything you need to create professional VS Code extensions with modern development practices and automated CI/CD._
+要求 VS Code 1.90+（侧栏视图）。核心逻辑在 `src/element-core.ts`（与旧的 `元素工具.py` 等价的 TypeScript 重写）；`src/parse.ts` 负责带位置的解析，`src/csv.ts` 负责数据模型与布局探测，其余为插件的 VS Code 集成层。

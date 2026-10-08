@@ -1,44 +1,12 @@
 # Change Log
 
-All notable changes to vscode-extension-template will be documented in this file.
+All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [0.1.1] - 2025-06-24
-
-### Fixed
-
--   Interactive setup in scripts\setup.mjs not displaying on PowerShell Terminals
-
-## [0.1.0] - 2025-06-23
+## [0.1.0] - 2026-10-08
 
 ### Added
 
--   Interactive setup in scripts\setup.js
--   Added templates to replace vscode-extension-template placeholders during interactive setup
--   Comprehensive test suite
--   Added GitHub CI workflow
--   Added CONTRIBUTING.md
-
-### Changed
-
--   Changed package.json to reflect correct author
--   Enhanced README with setup guide
--   Updated CHANGELOG
--   Documented recommended extensions in .vscode\extensions.json
-
-### Fixed
-
--   Added full name to LICENSE
-
-## [0.0.1] - 2025-06-21
-
-### Added
-
--   Initial extension scaffolding
--   Basic test framework setup
--   ESLint and Prettier integration
--   Extension activation and deactivation
--   Hello World command example
--   Professional development tooling
--   TypeScript configuration
+-   从 `UnderHellCodes/程序/vs-code` 迁移元素系统管理功能：侧栏「元素管理」Webview 面板、悬停、跳转定义、语义高亮、诊断，以及扫描/补全/清理/排序/改名/刷新命令。
+-   布局适配 UHTemp 模板（正文 `内容/`、数据 `附件/元素系统.csv`），并兼容旧的 `文档/` 布局。

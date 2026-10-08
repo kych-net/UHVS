@@ -1,31 +1,29 @@
-// src/test/extension.test.ts - Enhanced test suite
+// src/test/extension.test.ts
 import * as assert from 'assert';
 import * as vscode from 'vscode';
+
+const EXT_ID = 'kych-net.underhell-elements';
 
 suite('Extension Test Suite', () => {
     vscode.window.showInformationMessage('Start all tests.');
 
     test('Extension should be present', () => {
-        assert.ok(vscode.extensions.getExtension('ken-willis.vscode-extension-template'));
+        assert.ok(vscode.extensions.getExtension(EXT_ID));
     });
 
     test('Extension should activate', async () => {
-        const extension = vscode.extensions.getExtension('ken-willis.vscode-extension-template');
+        const extension = vscode.extensions.getExtension(EXT_ID);
         if (extension) {
             await extension.activate();
             assert.strictEqual(extension.isActive, true);
         }
     });
 
-    test('Hello World command should be registered', async () => {
+    test('Element commands should be registered', async () => {
         const commands = await vscode.commands.getCommands();
-        assert.ok(commands.includes('extension.helloWorld'));
-    });
-
-    test('Hello World command should execute', async () => {
-        // Test command execution
-        await vscode.commands.executeCommand('extension.helloWorld');
-        // Command should complete without throwing
+        for (const name of ['scan', 'complement', 'cleanup', 'sort', 'rename', 'refresh']) {
+            assert.ok(commands.includes(`underhell.elements.${name}`));
+        }
     });
 
     test('Package.json should have required fields', () => {

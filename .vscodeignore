@@ -1,6 +1,7 @@
 .vscode/**
 .vscode-test/**
 src/**
+out/test/**
 .editorconfig
 .gitattributes
 .github/**
@@ -11,3 +12,5 @@ src/**
 **/eslint.config.mjs
 .prettierrc
 **/tsconfig.json
+*.vsix
+node_modules/**
