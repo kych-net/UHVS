@@ -2,7 +2,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 
-const EXT_ID = 'kych-net.underhell-elements';
+const EXT_ID = 'kych-net.uhvs';
 
 suite('Extension Test Suite', () => {
     vscode.window.showInformationMessage('Start all tests.');
@@ -22,7 +22,7 @@ suite('Extension Test Suite', () => {
     test('Element commands should be registered', async () => {
         const commands = await vscode.commands.getCommands();
         for (const name of ['scan', 'complement', 'cleanup', 'sort', 'rename', 'refresh']) {
-            assert.ok(commands.includes(`underhell.elements.${name}`));
+            assert.ok(commands.includes(`uhvs.elements.${name}`));
         }
     });
 

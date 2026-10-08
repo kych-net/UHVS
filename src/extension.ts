@@ -11,7 +11,7 @@ import { registerCommands } from './commands';
 import { refreshAllDocs } from './diagnostics';
 import { ElementWebviewProvider } from './elementView';
 
-const ELEMENT_VIEW_ID = 'underhellElementExplorer.view';
+const ELEMENT_VIEW_ID = 'uhvsElementExplorer.view';
 
 /** 递归收集目录下全部 .typ 文件(按路径排序)。 */
 function collectTypFiles(root: string): string[] {

@@ -28,7 +28,7 @@ export interface CsvData {
  */
 export function findRepoRoot(workspaceFolder?: vscode.WorkspaceFolder): string | undefined {
   const opt = vscode.workspace
-    .getConfiguration('underhell.elements')
+    .getConfiguration('uhvs.elements')
     .get<string>('repoRoot', '');
   if (opt) {return path.resolve(opt);}
   if (!workspaceFolder) {return undefined;}

@@ -13,7 +13,7 @@ export interface CommandHooks {
 
 function requireRepo(app: AppContext): string {
   if (!app.repoRoot) {
-    throw new Error('未定位仓库根(含 内容/ 的目录)。可设置 underhell.elements.repoRoot。');
+    throw new Error('未定位仓库根(含 内容/ 的目录)。可设置 uhvs.elements.repoRoot。');
   }
   return app.repoRoot;
 }
@@ -26,7 +26,7 @@ function opts(app: AppContext): core.CoreOpts {
 export function registerCommands(app: AppContext, hooks: CommandHooks): void {
   const { ctrl } = app;
 
-  ctrl.subscriptions.push(vscode.commands.registerCommand('underhell.elements.scan', async () => {
+  ctrl.subscriptions.push(vscode.commands.registerCommand('uhvs.elements.scan', async () => {
     const o = opts(app);
     try {
       const r = core.scan(o);
@@ -42,7 +42,7 @@ export function registerCommands(app: AppContext, hooks: CommandHooks): void {
         );
         if (pick) {
           // 由 补全 命令统一追加全部缺失
-          void vscode.commands.executeCommand('underhell.elements.complement');
+          void vscode.commands.executeCommand('uhvs.elements.complement');
         }
       }
       vscode.window.showInformationMessage(lines.join('\n'));
@@ -51,7 +51,7 @@ export function registerCommands(app: AppContext, hooks: CommandHooks): void {
     }
   }));
 
-  ctrl.subscriptions.push(vscode.commands.registerCommand('underhell.elements.complement', async () => {
+  ctrl.subscriptions.push(vscode.commands.registerCommand('uhvs.elements.complement', async () => {
     try {
       const added = core.complement(opts(app));
       app.csv.invalidate();
@@ -62,7 +62,7 @@ export function registerCommands(app: AppContext, hooks: CommandHooks): void {
     } catch (e) { showErr(e as Error); }
   }));
 
-  ctrl.subscriptions.push(vscode.commands.registerCommand('underhell.elements.cleanup', async () => {
+  ctrl.subscriptions.push(vscode.commands.registerCommand('uhvs.elements.cleanup', async () => {
     try {
       const removed = core.cleanup(opts(app));
       app.csv.invalidate();
@@ -73,7 +73,7 @@ export function registerCommands(app: AppContext, hooks: CommandHooks): void {
     } catch (e) { showErr(e as Error); }
   }));
 
-  ctrl.subscriptions.push(vscode.commands.registerCommand('underhell.elements.sort', async () => {
+  ctrl.subscriptions.push(vscode.commands.registerCommand('uhvs.elements.sort', async () => {
     try {
       const r = core.sort(opts(app));
       app.csv.invalidate();
@@ -82,7 +82,7 @@ export function registerCommands(app: AppContext, hooks: CommandHooks): void {
     } catch (e) { showErr(e as Error); }
   }));
 
-  ctrl.subscriptions.push(vscode.commands.registerCommand('underhell.elements.rename', async () => {
+  ctrl.subscriptions.push(vscode.commands.registerCommand('uhvs.elements.rename', async () => {
     const editor = vscode.window.activeTextEditor;
     try {
       const o = opts(app);
@@ -107,7 +107,7 @@ export function registerCommands(app: AppContext, hooks: CommandHooks): void {
     } catch (e) { showErr(e as Error); }
   }));
 
-  ctrl.subscriptions.push(vscode.commands.registerCommand('underhell.elements.refresh', async () => {
+  ctrl.subscriptions.push(vscode.commands.registerCommand('uhvs.elements.refresh', async () => {
     try {
       await refreshAll();
       vscode.window.showInformationMessage('元素缓存已刷新');

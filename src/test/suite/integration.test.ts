@@ -2,7 +2,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 
-const EXT_ID = 'kych-net.underhell-elements';
+const EXT_ID = 'kych-net.uhvs';
 
 suite('Integration Test Suite', () => {
     test('Extension contributes correct commands', () => {
@@ -11,12 +11,12 @@ suite('Integration Test Suite', () => {
 
         assert.ok(packageJson.contributes.commands);
         assert.strictEqual(packageJson.contributes.commands.length, 6);
-        assert.strictEqual(packageJson.contributes.commands[0].command, 'underhell.elements.scan');
+        assert.strictEqual(packageJson.contributes.commands[0].command, 'uhvs.elements.scan');
     });
 
     test('Extension contributes the element management view', () => {
         const extension = vscode.extensions.getExtension(EXT_ID);
         const packageJson = extension?.packageJSON;
-        assert.ok(packageJson.contributes.views.underhellElementExplorer);
+        assert.ok(packageJson.contributes.views.uhvsElementExplorer);
     });
 });

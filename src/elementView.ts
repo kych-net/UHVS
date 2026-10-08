@@ -135,7 +135,7 @@ export class ElementWebviewProvider implements vscode.WebviewViewProvider {
         const name = String(msg.cmd);
         void (async () => {
           try {
-            await vscode.commands.executeCommand(`underhell.elements.${name}`);
+            await vscode.commands.executeCommand(`uhvs.elements.${name}`);
           } catch (e) {
             void vscode.window.showErrorMessage(`元素管理：${(e as Error).message}`);
           }
@@ -177,7 +177,7 @@ function html(s: Snapshot): string {
 
   const repoRootNote = s.repoRoot
     ? ''
-    : '<p class="warn">未定位到仓库根（找不到含 内容/ 的目录）。可设置 underhell.elements.repoRoot。</p>';
+    : '<p class="warn">未定位到仓库根（找不到含 内容/ 的目录）。可设置 uhvs.elements.repoRoot。</p>';
 
   return `<!DOCTYPE html>
 <html lang="zh">

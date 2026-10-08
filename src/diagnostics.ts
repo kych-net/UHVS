@@ -4,7 +4,7 @@
 import * as vscode from 'vscode';
 import type { AppContext } from './context';
 
-const coll = vscode.languages.createDiagnosticCollection('underhell-elements');
+const coll = vscode.languages.createDiagnosticCollection('uhvs');
 
 /** 全局 #设定元素 定义计数(用于检出重复定义)。 */
 function definitionCounts(app: AppContext): Map<string, number> {
@@ -31,7 +31,7 @@ export function refreshDocument(app: AppContext, uri: vscode.Uri): void {
         `元素「${r.id}」被重复定义 ${counts.get(r.id)} 次`,
         vscode.DiagnosticSeverity.Warning,
       );
-      d.source = 'underhell-elements';
+      d.source = 'uhvs';
       ds.push(d);
     }
     if (data && !data.rows.has(r.id)) {
@@ -40,7 +40,7 @@ export function refreshDocument(app: AppContext, uri: vscode.Uri): void {
         `元素「${r.id}」未收录于 元素系统.csv`,
         vscode.DiagnosticSeverity.Warning,
       );
-      d.source = 'underhell-elements';
+      d.source = 'uhvs';
       ds.push(d);
     }
   }

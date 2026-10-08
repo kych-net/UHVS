@@ -1,8 +1,8 @@
 {
-    "name": "underhell-elements",
+    "name": "uhvs",
     "displayName": "地狱之下 · 元素工具",
     "description": "为 UnderHell / UHTemp 的 Typst 正文提供元素系统支持:悬停/跳转/诊断/高亮,及补全/清理/排序/改名。",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "publisher": "kych-net",
     "author": "跨越晨昏",
     "engines": {
@@ -16,7 +16,7 @@
     "main": "./out/extension.js",
     "keywords": [
         "typst",
-        "underhell",
+        "uhvs",
         "uhtemp",
         "elements",
         "元素系统"
@@ -24,45 +24,45 @@
     "activationEvents": [
         "workspaceContains:**/*.typ",
         "workspaceContains:**/元素系统.csv",
-        "onView:underhellElementExplorer.view"
+        "onView:uhvsElementExplorer.view"
     ],
     "contributes": {
         "viewsContainers": {
             "secondarySidebar": [
                 {
-                    "id": "underhellElementExplorer",
+                    "id": "uhvsElementExplorer",
                     "title": "元素管理",
                     "icon": "resources/icon.svg"
                 }
             ]
         },
         "views": {
-            "underhellElementExplorer": [
+            "uhvsElementExplorer": [
                 {
                     "type": "webview",
-                    "id": "underhellElementExplorer.view",
+                    "id": "uhvsElementExplorer.view",
                     "name": "元素表"
                 }
             ]
         },
         "commands": [
-            { "command": "underhell.elements.scan", "title": "元素:扫描诊断" },
-            { "command": "underhell.elements.complement", "title": "元素:补全缺失到CSV" },
-            { "command": "underhell.elements.cleanup", "title": "元素:清理CSV孤儿" },
-            { "command": "underhell.elements.sort", "title": "元素:按文档顺序排序CSV" },
-            { "command": "underhell.elements.rename", "title": "元素:重命名ID" },
-            { "command": "underhell.elements.refresh", "title": "元素:刷新缓存" }
+            { "command": "uhvs.elements.scan", "title": "元素:扫描诊断" },
+            { "command": "uhvs.elements.complement", "title": "元素:补全缺失到CSV" },
+            { "command": "uhvs.elements.cleanup", "title": "元素:清理CSV孤儿" },
+            { "command": "uhvs.elements.sort", "title": "元素:按文档顺序排序CSV" },
+            { "command": "uhvs.elements.rename", "title": "元素:重命名ID" },
+            { "command": "uhvs.elements.refresh", "title": "元素:刷新缓存" }
         ],
         "menus": {
             "editor/context": [
                 {
                     "when": "editorLangId == typst",
-                    "command": "underhell.elements.rename",
-                    "group": "9_underhell"
+                    "command": "uhvs.elements.rename",
+                    "group": "9_uhvs"
                 }
             ],
             "commandPalette": [
-                { "command": "underhell.elements.rename", "when": "editorHasSelection" }
+                { "command": "uhvs.elements.rename", "when": "editorHasSelection" }
             ]
         },
         "semanticTokenTypes": [
@@ -78,7 +78,7 @@
         "configuration": {
             "title": "地狱之下元素",
             "properties": {
-                "underhell.elements.repoRoot": {
+                "uhvs.elements.repoRoot": {
                     "type": "string",
                     "default": "",
                     "description": "可选覆盖仓库根(含 内容/ 的目录)。留空则自动从工作区探测。"
